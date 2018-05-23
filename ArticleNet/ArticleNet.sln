@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticleNet", "ArticleNet\ArticleNet.csproj", "{BD226F43-7764-4FA0-ACAB-44A84B438221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticleNet.Tests", "ArticleNet.Tests\ArticleNet.Tests.csproj", "{5072820F-B726-4927-8B10-1C0FEBE75C31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD226F43-7764-4FA0-ACAB-44A84B438221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD226F43-7764-4FA0-ACAB-44A84B438221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD226F43-7764-4FA0-ACAB-44A84B438221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD226F43-7764-4FA0-ACAB-44A84B438221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5072820F-B726-4927-8B10-1C0FEBE75C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5072820F-B726-4927-8B10-1C0FEBE75C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5072820F-B726-4927-8B10-1C0FEBE75C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5072820F-B726-4927-8B10-1C0FEBE75C31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
