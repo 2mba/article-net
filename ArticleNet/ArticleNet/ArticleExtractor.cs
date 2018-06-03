@@ -49,7 +49,7 @@ namespace Tumba.ArticleNet
     {
         public string Title { get; set; }
         
-        public string OpenGraph { get; set; }
+        public Dictionary<string, string> OpenGraph { get; set; }
     }
 
     internal interface IExtractorPipelineConfigurer
