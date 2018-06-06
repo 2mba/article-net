@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HtmlAgilityPack;
 using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
 using IExtractor = Tumba.ArticleNet.Extractors.IExtractor;
@@ -24,15 +25,15 @@ namespace Tumba.ArticleNet
             HtmlDocument document;
             string errorMessage;
             
-            if (!HtmlDocument.TryCreate(html, out document, out errorMessage))
+            if (!TryCreateHtmlDocument(html, out document, out errorMessage))
             {
                 throw new ExtractionException(errorMessage);
             }
 
-            var context = new ExtractorContext();
+            var context = new ExtractorContext(document);
             pipeline(context);
             
-            return new Article()
+            return new Article
             {
                 Title = context.Title
             };
@@ -42,11 +43,34 @@ namespace Tumba.ArticleNet
         {
             return new ArticleExtractor(new ExtractorPipelineConfigurer(), config);
         }
-        
+
+        private static bool TryCreateHtmlDocument(string html, out HtmlDocument document, out string message)
+        {
+            try
+            {
+                document = new HtmlDocument();
+                document.LoadHtml(html);
+                message = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                document = null;
+                message = ex.Message;
+                return false;
+            }
+        }
     }
     
     internal class ExtractorContext
     {
+        public ExtractorContext(HtmlDocument htmlDocument)
+        {
+            HtmlDocument = htmlDocument;
+        }
+
+        public HtmlDocument HtmlDocument { get; }
+        
         public string Title { get; set; }
         
         public Dictionary<string, string> OpenGraph { get; set; }
