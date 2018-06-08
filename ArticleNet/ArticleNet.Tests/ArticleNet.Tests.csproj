@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ArticleExtractorTests.cs" />
     <Compile Include="Extractors\OpenGraphExtractorTest.cs" />
+    <Compile Include="Extractors\TitleExtractorTests.cs" />
     <Compile Include="HtmlDocumentUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

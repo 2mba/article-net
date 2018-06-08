@@ -68,6 +68,8 @@ namespace Tumba.ArticleNet
             HtmlDocument = htmlDocument;
         }
 
+        public string Domain { get; set; }
+
         public HtmlDocument HtmlDocument { get; }
         
         public string Title { get; set; }
