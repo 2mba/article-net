@@ -12,10 +12,12 @@ namespace Tumba.ArticleNet
     public class ArticleExtractor
     {
         private readonly Action<ExtractorContext> pipeline;
-
+        private readonly ArticleBuilder articleBuilder;
+        
         internal ArticleExtractor(IExtractorPipelineConfigurer extractorPipelineConfigurer, ExtractorConfiguration config)
         {
             var pipelineBuilder = new PipelineBuilder(extractorPipelineConfigurer);
+            articleBuilder = ArticleBuilder.Create();
             pipeline = pipelineBuilder.BuildPipeline(config);
 
         }
@@ -32,11 +34,8 @@ namespace Tumba.ArticleNet
 
             var context = new ExtractorContext(document);
             pipeline(context);
-            
-            return new Article
-            {
-                Title = context.Title
-            };
+
+            return articleBuilder.Build(context);
         }
 
         public static ArticleExtractor Create(ExtractorConfiguration config)
