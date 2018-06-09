@@ -1,11 +1,9 @@
-﻿using System;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
 namespace ArticleNet.Tests
 {
     public static class HtmlDocumentUtils
     {
-
         public static HtmlDocument CreateHtmlDocument(string content)
         {
             var document = new HtmlDocument();

@@ -8,7 +8,7 @@ namespace Tumba.ArticleNet.Extractors
     {
         private static readonly string[] TitleSplitters = { "|", "-", "»", ":" };
 
-        public void Execute(ExtractorContext context, Action<ExtractorContext> next)
+        public void Execute(ExtractorContext context)
         {
             if (context.OpenGraph != null && context.OpenGraph.TryGetValue("title", out var title))
             {

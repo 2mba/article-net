@@ -43,13 +43,16 @@
   <ItemGroup>
     <Compile Include="Article.cs" />
     <Compile Include="ArticleBuilder.cs" />
+    <Compile Include="ArticleContext.cs" />
     <Compile Include="ArticleExtractor.cs" />
-    <Compile Include="ExtractionException.cs" />
+    <Compile Include="ArticleExtractorException.cs" />
     <Compile Include="ExtractorConfiguration.cs" />
+    <Compile Include="ExtractorContext.cs" />
     <Compile Include="Extractors\IExtractor.cs" />
     <Compile Include="Extractors\OpengraphExtractor.cs" />
     <Compile Include="Extractors\TitleExtractor.cs" />
-    <Compile Include="HtmlMeta.cs" />
+    <Compile Include="Pipeline\ExtractorPipelineConfigurer.cs" />
+    <Compile Include="Pipeline\IExtractorPipelineConfigurer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

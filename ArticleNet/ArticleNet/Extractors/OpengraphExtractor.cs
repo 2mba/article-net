@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Tumba.ArticleNet.Extractors
 {
@@ -10,7 +9,7 @@ namespace Tumba.ArticleNet.Extractors
         private const string ElementMetaAttributeContent = "content";  
         private const string OpenGraphPropertyPrefix = "og:";  
         
-        public void Execute(ExtractorContext context, Action<ExtractorContext> next)
+        public void Execute(ExtractorContext context)
         {
             var document = context.HtmlDocument;
             var metas = document.DocumentNode.SelectNodes($"//{ElementMeta}");

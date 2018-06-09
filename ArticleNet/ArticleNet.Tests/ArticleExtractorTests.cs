@@ -1,15 +1,14 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
+using Tumba.ArticleNet.Pipeline;
 
 namespace ArticleNet.Tests
 {
     [TestFixture]
     public class ArticleExtractorTests
     {
-
         [Test]
         public void SingleTitleExtractorTest()
         {
@@ -58,10 +57,9 @@ namespace ArticleNet.Tests
                 this.title = title;
             }
 
-            public void Execute(ExtractorContext context, Action<ExtractorContext> next)
+            public void Execute(ExtractorContext context)
             {
                 context.Title = title;
-                next(context);
             }
         }
     }

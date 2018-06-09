@@ -1,46 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using HtmlAgilityPack;
-using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
-using IExtractor = Tumba.ArticleNet.Extractors.IExtractor;
+using Tumba.ArticleNet.Pipeline;
 
 namespace Tumba.ArticleNet
 {
-    
     public class ArticleExtractor
     {
-        private readonly Action<ExtractorContext> pipeline;
         private readonly ArticleBuilder articleBuilder;
+        private readonly IExtractor[] extractors;
         
         internal ArticleExtractor(IExtractorPipelineConfigurer extractorPipelineConfigurer, ExtractorConfiguration config)
         {
-            var pipelineBuilder = new PipelineBuilder(extractorPipelineConfigurer);
-            articleBuilder = ArticleBuilder.Create();
-            pipeline = pipelineBuilder.BuildPipeline(config);
-
-        }
-
-        public Article Extract(string html)
-        {
-            HtmlDocument document;
-            string errorMessage;
-            
-            if (!TryCreateHtmlDocument(html, out document, out errorMessage))
-            {
-                throw new ExtractionException(errorMessage);
-            }
-
-            var context = new ExtractorContext(document);
-            pipeline(context);
-
-            return articleBuilder.Build(context);
+            this.articleBuilder = ArticleBuilder.Create();
+            this.extractors = extractorPipelineConfigurer.Configure(config);
         }
 
         public static ArticleExtractor Create(ExtractorConfiguration config)
         {
             return new ArticleExtractor(new ExtractorPipelineConfigurer(), config);
+        }
+
+        public Article Extract(string html, ArticleContext articleContext = null)
+        {
+            if (!TryCreateHtmlDocument(html, out var document, out var errorMessage))
+            {
+                throw new ArticleExtractorException(errorMessage);
+            }
+
+            var context = new ExtractorContext(document);
+            
+            if (articleContext != null)
+            {
+                if (articleContext.Url != null)
+                {
+                    context.Domain = articleContext.Url.Host;
+                }
+            }
+
+            foreach (var extractor in extractors)
+            {
+                extractor.Execute(context);
+            }
+
+            return articleBuilder.Build(context);
         }
 
         private static bool TryCreateHtmlDocument(string html, out HtmlDocument document, out string message)
@@ -60,73 +63,4 @@ namespace Tumba.ArticleNet
             }
         }
     }
-    
-    internal class ExtractorContext
-    {
-        public ExtractorContext(HtmlDocument htmlDocument)
-        {
-            HtmlDocument = htmlDocument;
-        }
-
-        public string Domain { get; set; }
-
-        public HtmlDocument HtmlDocument { get; }
-        
-        public string Title { get; set; }
-        
-        public Dictionary<string, string> OpenGraph { get; set; }
-    }
-
-    internal interface IExtractorPipelineConfigurer
-    {
-
-        IExtractor[] Configure(ExtractorConfiguration config);
-    }
-
-
-    internal class ExtractorPipelineConfigurer : IExtractorPipelineConfigurer
-    {
-        private OpengraphExtractor opengraphExtractor = new OpengraphExtractor();
-        private TitleExtractor titleExtractor = new TitleExtractor();
-
-        public IExtractor[] Configure(ExtractorConfiguration config)
-        {
-            return new IExtractor[] { opengraphExtractor, titleExtractor };
-        }
-    }
-
-    internal class PipelineBuilder
-    {
-
-        private readonly IExtractorPipelineConfigurer extractorPipelineConfigurer;
-
-        public PipelineBuilder(IExtractorPipelineConfigurer extractorPipelineConfigurer)
-        {
-            this.extractorPipelineConfigurer = extractorPipelineConfigurer;
-        }
-
-        public Action<ExtractorContext> BuildPipeline(ExtractorConfiguration config)
-        {
-            var extractors = extractorPipelineConfigurer.Configure(config);
-            return BuildPipelineDelegate(extractors);
-        }
-
-        private static Action<ExtractorContext> BuildPipelineDelegate(IExtractor[] extractors)
-        {
-            Action<ExtractorContext> action = c => { ExecuteNext(extractors, c, 0); };
-
-            return action;
-        }
-
-        private static void ExecuteNext(IExtractor[] extractors, ExtractorContext c, int idx)
-        {
-            if (idx >= extractors.Length)
-            {
-                return;
-            }
-            
-            extractors[idx].Execute(c, context => ExecuteNext(extractors, c, idx + 1));}
-        }
-    
-   
 }

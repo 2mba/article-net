@@ -1,10 +1,9 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
 
-namespace ArticleNet.Tests
+namespace ArticleNet.Tests.Extractors
 {
     [TestFixture]
     public class OpenGraphExtractorTest
@@ -27,7 +26,7 @@ namespace ArticleNet.Tests
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new OpengraphExtractor();
-            extractor.Execute(context, extractorContext => { });
+            extractor.Execute(context);
 
             context.OpenGraph.Should().ContainKeys("title", "type", "url", "image");
             

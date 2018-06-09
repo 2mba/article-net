@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
 
-namespace ArticleNet.Tests
+namespace ArticleNet.Tests.Extractors
 {
     [TestFixture]
     public class TitleExtractorTests
@@ -44,7 +44,7 @@ namespace ArticleNet.Tests
             };
 
             var extractor = new TitleExtractor();
-            extractor.Execute(context, extractorContext => { });
+            extractor.Execute(context);
 
             context.Title.Should().Be(expectedTitle);
         }
@@ -57,7 +57,7 @@ namespace ArticleNet.Tests
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new TitleExtractor();
-            extractor.Execute(context, extractorContext => { });
+            extractor.Execute(context);
 
             context.Title.Should().Be("my title");
         }
@@ -70,7 +70,7 @@ namespace ArticleNet.Tests
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new TitleExtractor();
-            extractor.Execute(context, extractorContext => { });
+            extractor.Execute(context);
 
             context.Title.Should().Be("my title");
         }
