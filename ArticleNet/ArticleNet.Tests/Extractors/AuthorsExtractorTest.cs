@@ -28,6 +28,7 @@ namespace ArticleNet.Tests
             "<title>Html Title</title>" +
             "</head>" +
         
+            "<span itemprop=\"name\">Gomer Simpson</span>" + // It is not author node name  
             "<span itemprop=\"author\" itemscope itemtype=\"http://schema.org/Person\">" + 
             "    <span itemprop=\"name\">John Smith</span>" + 
             "</span>" +

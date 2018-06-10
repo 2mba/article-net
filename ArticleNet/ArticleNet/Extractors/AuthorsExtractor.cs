@@ -22,7 +22,7 @@ namespace Tumba.ArticleNet.Extractors
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var node in authorNodes)
             {
-                var nameNode = node.SelectSingleNode("//*[@itemprop=\"name\"]");
+                var nameNode = node.SelectSingleNode(".//*[@itemprop=\"name\"]");
 
                 if (nameNode != null && nameNode.HasChildNodes)
                 {
