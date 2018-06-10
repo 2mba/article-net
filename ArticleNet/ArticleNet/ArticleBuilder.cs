@@ -6,7 +6,9 @@
         {
             var article = new Article
             {
-                Title = context.Title
+                Title = context.Title,
+                Authors = context.Authors
+                    
             };
 
             return article;
