@@ -17,5 +17,7 @@ namespace Tumba.ArticleNet
         public string Title { get; set; }
         
         public Dictionary<string, string> OpenGraph { get; set; }
+        
+        public List<string> Authors { get; set; }
     }
 }
