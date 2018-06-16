@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using ArticleNet.Tests.Utilities;
+using FluentAssertions;
 using NUnit.Framework;
 using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
@@ -22,7 +23,7 @@ namespace ArticleNet.Tests.Extractors
         [Test]
         public void ParseSimpleHtml()
         {
-            var htmlDocument = HtmlDocumentUtils.CreateHtmlDocument(HtmlWithOpenGraph);
+            var htmlDocument = TestUtilites.CreateHtmlDocument(HtmlWithOpenGraph);
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new OpengraphExtractor();

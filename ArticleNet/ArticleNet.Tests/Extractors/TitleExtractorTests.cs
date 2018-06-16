@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ArticleNet.Tests.Utilities;
 using FluentAssertions;
 using NUnit.Framework;
 using Tumba.ArticleNet;
@@ -32,7 +33,7 @@ namespace ArticleNet.Tests.Extractors
         [TestCase("| my title 1 | my title 2 |", "my title 1 | my title 2")]
         public void ShouldExtractFromOpenGraph(string title, string expectedTitle)
         {
-            var htmlDocument = HtmlDocumentUtils.CreateHtmlDocument("<html></hmtl>");
+            var htmlDocument = TestUtilites.CreateHtmlDocument("<html></hmtl>");
             var context = new ExtractorContext(htmlDocument)
             {
                 OpenGraph = new Dictionary<string, string>()
@@ -53,7 +54,7 @@ namespace ArticleNet.Tests.Extractors
         public void ShouldExtractFromHeadlineMetaTag()
         {
             var htmlContent = string.Format(HeadlineMetaTagTemplate, "my title");
-            var htmlDocument = HtmlDocumentUtils.CreateHtmlDocument(htmlContent);
+            var htmlDocument = TestUtilites.CreateHtmlDocument(htmlContent);
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new TitleExtractor();
@@ -66,7 +67,7 @@ namespace ArticleNet.Tests.Extractors
         public void ShouldExtractFromTitleTag()
         {
             var htmlContent = string.Format(TitleTagTemplate, "my title");
-            var htmlDocument = HtmlDocumentUtils.CreateHtmlDocument(htmlContent);
+            var htmlDocument = TestUtilites.CreateHtmlDocument(htmlContent);
             var context = new ExtractorContext(htmlDocument);
 
             var extractor = new TitleExtractor();

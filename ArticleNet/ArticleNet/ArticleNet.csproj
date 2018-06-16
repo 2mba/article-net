@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tumba.ArticleNet</RootNamespace>
     <AssemblyName>2mba.ArticleNet</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,7 @@
     <Compile Include="ArticleExtractorException.cs" />
     <Compile Include="ExtractorConfiguration.cs" />
     <Compile Include="ExtractorContext.cs" />
+    <Compile Include="Extractors\AuthorsExtractor.cs" />
     <Compile Include="Extractors\IExtractor.cs" />
     <Compile Include="Extractors\OpengraphExtractor.cs" />
     <Compile Include="Extractors\TitleExtractor.cs" />

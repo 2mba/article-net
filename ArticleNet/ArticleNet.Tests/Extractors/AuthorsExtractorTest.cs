@@ -1,11 +1,9 @@
-﻿using System;
-using ArticleNet.Tests.Utils;
+﻿using ArticleNet.Tests.Utilities;
 using FluentAssertions;
 using NUnit.Framework;
-using Tumba.ArticleNet;
 using Tumba.ArticleNet.Extractors;
 
-namespace ArticleNet.Tests
+namespace ArticleNet.Tests.Extractors
 {
     [TestFixture]
     public class AuthorsExtractorTest
@@ -56,8 +54,7 @@ namespace ArticleNet.Tests
         [Test]
         public void ParseOneAuthorHtml()
         {
-            var helper = new ExtractorTestHelper(HtmlWithAuthor, new AuthorsExtractor());
-            var context = helper.Execute();
+            var context = TestUtilites.ExecuteExtractor(HtmlWithAuthor, new AuthorsExtractor());
 
             context.Authors
                 .Should()
@@ -69,8 +66,7 @@ namespace ArticleNet.Tests
         [Test]
         public void ParseTwoAuthorHtml()
         {
-            var helper = new ExtractorTestHelper(HtmlWithTwoAuthor, new AuthorsExtractor());
-            var context = helper.Execute();
+            var context = TestUtilites.ExecuteExtractor(HtmlWithTwoAuthor, new AuthorsExtractor());
             
             context.Authors
                 .Should()
@@ -82,8 +78,7 @@ namespace ArticleNet.Tests
         [Test]
         public void ParseNoAuthorHtml()
         {
-            var helper = new ExtractorTestHelper(HtmlWithNoAuthor, new AuthorsExtractor());
-            var context = helper.Execute();
+            var context = TestUtilites.ExecuteExtractor(HtmlWithNoAuthor, new AuthorsExtractor());
             
             context.Authors
                 .Should()
